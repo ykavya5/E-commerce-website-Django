@@ -1,0 +1,232 @@
+{% load static %}
+<!Doctype HTML>
+<html>
+
+<head>
+  <title></title> 
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script>
+    function loadrem(row) {
+        var inVal = parseFloat(row.querySelector('.inflow').value);
+        var outVal = parseFloat(row.querySelector('.outflow').value);
+        var remVal = inVal - outVal;
+        row.querySelector('.remaining').value = remVal;
+    }
+
+    function finalsave(row) {
+    var daily_id = row.querySelector('.daily-id').value;
+    var inVal = parseFloat(row.querySelector('.inflow').value);
+    var outVal = parseFloat(row.querySelector('.outflow').value);
+    var remVal = parseFloat(row.querySelector('.remaining').value);
+
+    var data = [{
+        'daily_id': daily_id,
+        'inflow': inVal,
+        'outflow': outVal,
+        'remaining': remVal
+    }];
+
+    document.getElementById('fsave').value = JSON.stringify(data);
+    return true;
+}
+
+</script>
+
+  
+  <style>
+    body {
+      overflow: scroll;
+    }
+
+    #mySidenav {
+      position: fixed;
+      width: 300px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: #fff;
+      overflow-x: hidden;
+      padding-top: 60px;
+      box-shadow: none;
+    }
+
+    #mySidenav p.logo {
+      font-size: 28px;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+    .col-div-9 {
+    margin: 20px auto;
+    max-width: 1200px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table thead tr th,
+  .table tbody tr td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .table thead tr th {
+    background-color: hsl(0, 1%, 40%);
+    color: hsl(0, 100%, 2%);
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: hsl(0, 0%, 2%)
+  }
+  
+  .table tbody tr td input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .table tbody tr td input[type="text"]:focus {
+    outline: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  .table tbody tr td button.save-btn {
+    background-color: #0fe038;
+    color: #784b4b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .table tbody tr td button.save-btn:hover {
+    background-color: #495057;
+  }
+  
+  .table tbody tr td button.save-btn:focus,
+  .table tbody tr td button.save-btn:active {
+    background-color: #444;
+  }
+
+  </style>
+
+
+
+</head>
+
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <p class="logo">Admin-Dashboard</p>
+    <a href="{% url 'index1' %}" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+    <a href="{% url 'customer' %}"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Customers</a>
+    <a href="{% url 'categories' %}"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Categories</a>
+    <a href="{% url 'products' %}"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Products</a>
+    <a href="{% url 'order_details' %}"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Order Details</a>
+    <a href="{% url 'orders' %}"class="icon-a"><i class="fa fa-shopping-cart"></i> &nbsp;&nbsp;Orders</a>
+    <a href="{% url 'dailysheet' %}"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Dailysheet</a>
+    <a href="{% url 'queries' %}"class="icon-a"><i class="fa fa-question-circle"></i> &nbsp;&nbsp;View Queries</a>
+    <a href="{% url 'logout' %}"class="icon-a"><i class="fa fa-sign-out"></i> &nbsp;&nbsp;Logout</a>
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+      </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+
+    <div class="col-div-9">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+      <form method="post" action="save_stock" id="dailysheet" name="dailysheet">
+          {% csrf_token %}
+          <div>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">Product id</th>
+                          <th scope="col">order date</th>
+                          <th scope="col"> INFLOW Quantity</th>
+                          <th scope="col">OUTFLOW Quantity</th>
+                          <th scope="col"> Remaining Quantity</th>
+                          <th scope="col">Save</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for x in da %}
+                      <tr>
+                          <input type="hidden" class="daily-id" value="{{ x.daily_id }}">
+                          <td>{{ x.product_id }}</td>
+                          <td>{{ x.order_date }}</td>
+                          <td><input type="text" name="in[]" class="inflow" value="{{ x.inflow }}" onchange="loadrem(this.parentNode.parentNode)" /></td>
+                          <td><input type="text" name="out[]" class="outflow" value="{{ x.outflow }}" readonly /></td>
+                          <td><input type="text" name="rem[]" class="remaining" value="{{ x.rem }}" readonly /></td>
+                          <td><button type="submit" name="update" onclick="return finalsave(this.parentNode.parentNode)" class="save-btn">Save</button></td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+          <input type="hidden" name="fsave" id="fsave">
+      </form>
+  </div>
+    
+  
+  </div>
+  </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  $(".nav").click(function(){
+    $("#mySidenav").css('width','70px');
+    $("#main").css('margin-left','70px');
+    $(".logo").css('visibility', 'hidden');
+    $(".logo span").css('visibility', 'visible');
+     $(".logo span").css('margin-left', '-10px');
+     $(".icon-a").css('visibility', 'hidden');
+     $(".icons").css('visibility', 'visible');
+     $(".icons").css('margin-left', '-8px');
+      $(".nav").css('display','none');
+      $(".nav2").css('display','block');
+  });
+
+$(".nav2").click(function(){
+    $("#mySidenav").css('width','300px');
+    $("#main").css('margin-left','300px');
+    $(".logo").css('visibility', 'visible');
+     $(".icon-a").css('visibility', 'visible');
+     $(".icons").css('visibility', 'visible');
+     $(".nav").css('display','block');
+      $(".nav2").css('display','none');
+ });
+
+</script>
+
+
+</html>

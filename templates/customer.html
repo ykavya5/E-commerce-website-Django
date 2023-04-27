@@ -1,0 +1,123 @@
+<!Doctype HTML>
+<html>
+<head>
+    {% load static %}
+	<title></title>
+	<link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {overflow: scroll;}
+    #mySidenav {
+        position: fixed;
+        width: 300px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background-color: #fff;
+        overflow-x: hidden;
+        padding-top: 60px;
+        box-shadow: none;
+      }
+  </style>
+</head>
+
+
+<body>
+	
+	<div id="mySidenav" class="sidenav">
+	<p class="logo">Admin-Dashboard</p>
+  <a href="{% url 'index1' %}" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+  <a href="{% url 'customer' %}"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Customers</a>
+  <a href="{% url 'categories' %}"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Categories</a>
+  <a href="{% url 'products' %}"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Products</a>
+  <a href="{% url 'order_details' %}"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Order Details</a>
+  <a href="{% url 'orders' %}"class="icon-a"><i class="fa fa-shopping-cart"></i> &nbsp;&nbsp;Orders</a>
+  <a href="{% url 'dailysheet' %}"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Dailysheet</a>
+  <a href="{% url 'queries' %}"class="icon-a"><i class="fa fa-question-circle"></i> &nbsp;&nbsp;View Queries</a>
+  <a href="{% url 'logout' %}"class="icon-a"><i class="fa fa-sign-out"></i> &nbsp;&nbsp;Logout</a>
+</div>
+<div id="main">
+
+	<div class="head">
+		<div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav"  >&#9776; Dashboard</span>
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav2"  >&#9776; Dashboard</span>
+</div>
+	
+	
+    <div class="clearfix"></div>
+  </div>
+  
+    <div class="clearfix"></div>
+    <br/>
+    
+    <div class="col-div-3">
+      <div >
+      <form method="post" id="cust" name="cust">
+        {%csrf_token%}
+       
+          <table class="table">
+            <thead>
+              <tr>
+  
+                <th scope="col">Customer id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Password</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in reg %}
+              <tr>
+  
+                <td>{{x.cust_id}}</td>
+                <td>{{x.username}}</td>
+                <td>{{x.password}}</td>
+                <td>{{x.phoneno}}</td>
+                <td>{{x.address}}</td>
+                <td>{{x.email}}</td>
+  
+              </tr>
+              {% endfor %}
+  
+  
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+    </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  $(".nav").click(function(){
+    $("#mySidenav").css('width','70px');
+    $("#main").css('margin-left','70px');
+    $(".logo").css('visibility', 'hidden');
+    $(".logo span").css('visibility', 'visible');
+     $(".logo span").css('margin-left', '-10px');
+     $(".icon-a").css('visibility', 'hidden');
+     $(".icons").css('visibility', 'visible');
+     $(".icons").css('margin-left', '-8px');
+      $(".nav").css('display','none');
+      $(".nav2").css('display','block');
+  });
+
+$(".nav2").click(function(){
+    $("#mySidenav").css('width','300px');
+    $("#main").css('margin-left','300px');
+    $(".logo").css('visibility', 'visible');
+     $(".icon-a").css('visibility', 'visible');
+     $(".icons").css('visibility', 'visible');
+     $(".nav").css('display','block');
+      $(".nav2").css('display','none');
+ });
+
+</script>
+
+    </html>
+  

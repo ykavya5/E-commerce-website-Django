@@ -1,0 +1,168 @@
+{% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <!--Design by foolishdeveloper.com -->
+        <title>Products</title>
+     
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+        <!--Stylesheet-->
+        <style media="screen">
+    
+          *,
+          *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #44b9f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+form{
+  height: 600px;
+  width: 400px;
+  background-color: rgba(245, 243, 243, 0.919);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(12, 1, 1, 0.932);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 50px 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form h3{
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0e0e0e;
+}
+
+form label{
+  font-size: 16px;
+  font-weight: 500;
+  color: #0c0c0c;
+  margin-top: 20px;
+}
+
+form input{
+  height: 40px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #141313;
+  border: none;
+  outline: none;
+}
+
+form input::placeholder{
+  color: #0a0a0a;
+}
+
+form button{
+  margin-top: 20px;
+  width: 100%;
+  background-color: #14f148;
+  color: #fbfbfe;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+form button:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+form .social{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+form .social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #fefafae5;
+  text-align: center;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+form .social div:hover{
+  background-color: rgba(255,255,255,0.47);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+form .social i{
+  margin-right: 4px;
+}
+    
+        </style>
+        
+    </head>
+    <body>
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+           
+          <form id="products" name="products"  method="post">
+            {% csrf_token %} 
+            <h3>Products</h3>
+            {% for x in pd %}
+            
+            <label for="prouct_name">product_name</label>
+            <input type="text" placeholder="{{x.product_name}}" value="{{x.product_name}}" name="product_name" id="product_name">
+    
+            <label for="price">Price</label>
+            <input type="text" placeholder="{{x.price}}" value="{{x.price}}" id="price" name="price">
+            <label for="prod_size">Product Size</label>
+            <input type="text" placeholder="{{x.prod_size}}" value="{{x.prod_size}}"  id="prod_size" name="prod_size">
+    
+            <label for="prod_status">Product Status</label>
+            <input type="text" placeholder="{{x.prod_status}}" value="{{x.prod_status}}" id="prod_status" name="prod_status">
+            <label for="category_id">Category_id</label>
+            <input type="text" placeholder="{{x.category_id}}" value="{{x.category_id}}" id="category_id" name="category_id">
+            <label for="pdesc">Product Description</label>
+            <input type="textarea" placeholder="{{x.description}}" value="{{x.description}}" id="description" name="description">
+            {%endfor%}
+         
+            <button name= "submit" id ="submit" class="opacity"  >SUBMIT</button>
+            
+            
+            
+          </form>
+        </div>
+        
+           
+        
+    </body>
+    </html> 
+           
+        
+    </body>
+    </html> 

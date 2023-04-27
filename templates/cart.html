@@ -1,0 +1,481 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+    <meta charset="utf-8">
+    <title>MATHAMANIKESHWARI TRADING COMPANY - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script type="text/javascript">
+        
+        function loadtotal(price, product_id) {
+            //alert(product_id);
+            var quantity = document.getElementById(product_id+"_q").value;
+            var size = document.getElementById(product_id + "_size").value;
+            var total = parseFloat(price) * parseInt(quantity);
+            document.getElementById(price + "_" + product_id + "_total").value = total.toFixed(2);
+            updateTotal();    
+    }
+    function updateTotal() {
+      var total = 0;
+      var inputs = document.querySelectorAll('input[id$="_total"]');
+      for (var i = 0; i < inputs.length; i++) {
+        total += parseFloat(inputs[i].value);
+      }
+      if(total>0){
+      var shippingCharge = 10;
+      var subtotal = total;
+      var grandTotal = subtotal + shippingCharge;
+      document.getElementById('cart_total').innerHTML = '₹' + total.toFixed(2);
+      document.getElementById('cart_shipping').innerHTML = '₹' + shippingCharge.toFixed(2);
+      document.getElementById('cart_grandtotal').innerHTML = '₹' + grandTotal.toFixed(2);
+      }
+    }
+     // Call updateTotal() on page load to initialize the total
+     window.onload = function() {
+      updateTotal();
+    };
+    // Call updateTotal() whenever the number of products or their quantity changes
+    var inputs = document.querySelectorAll('input[id^="product_id"]');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("change", updateTotal);
+    }
+    function finalsubmit() {
+    var total = 0;
+    var inputs = document.querySelectorAll('input[id$="_total"]');
+    var pids = document.querySelectorAll('input[id$="_pid"]');
+    var quantitys = document.querySelectorAll('input[id$="_q"]');
+    var sizes = [];
+    for (var i = 0; i < inputs.length; i++) {
+        total += parseFloat(inputs[i].value);
+        var pid = pids[i].value;
+        var size = document.getElementById(pid + "_size").value;
+        sizes.push(size);
+    }
+    var strpids = pids[0].value;
+    var strquantitys = quantitys[0].value;
+    var selsizes = sizes[0];
+    for (var i = 1; i < inputs.length; i++) {
+        strpids += "," + pids[i].value;
+        strquantitys += "," + quantitys[i].value;
+        selsizes += "," + sizes[i];
+    }
+    var final = strpids + "@" + strquantitys + "@" + total + "@" + selsizes;
+    document.getElementById("finalsub").value = final;
+    return true;
+}
+
+    
+    </script>
+    <style>
+        .empty-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.cart-logo {
+  background-image: url("{% static 'img/cart.png' %}");
+  width: 170px;
+  height: 170px;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+ #cart {
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+}
+/* Cart table */
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.table-bordered th,
+.table-bordered td {
+    vertical-align: middle;
+}
+
+.table-bordered th {
+    background-color: #9da1a4;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.table-bordered td {
+    font-size: 16px;
+}
+
+.table-bordered td img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.table-bordered td input[type="text"] {
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
+.table-bordered td input[type="text"]:focus {
+    outline: none;
+}
+
+.table-bordered td a {
+    color: #6C757D;
+    text-decoration: none;
+}
+
+.table-bordered td a:hover {
+    color: #DC3545;
+}
+
+/* Cart summary */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #343a40;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    padding: 20px;
+}
+
+.card-header h4 {
+    font-weight: bold;
+    color: #302d2d;
+    font-size: 24px;
+    margin: 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+    background-color: #fff;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    padding: 20px;
+}
+
+.card-footer h5 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-footer button {
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px;
+    background-color: #343a40;
+    color: #fff;
+    transition: all 0.2s;
+    width: 100%;
+    border: none;
+}
+
+.card-footer button:hover {
+    background-color: #fff;
+    color: #343a40;
+    border: 2px solid #343a40;
+}
+
+.card-footer input[type="text"] {
+    display: none;
+}
+
+.card-footer .btn-block {
+    margin-top: 20px;
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <!--div class="container-fluid">
+        <div class="row bg-secondary py-2 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Help</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Support</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div-->
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"></h1>
+                </a>
+            </div>
+            <div class="col-lg-6 text-center d-none d-lg-block">
+                <a href="/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold">Matha Manikeshwari Trading Company</h1>
+                </a>
+            </div>
+            <!--div class="col-lg-3 col-6 text-right ml-auto">
+                <a href="" class="btn border">
+                    <i class="fas fa-heart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a href="" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div-->
+        </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold">Mathamanikeshwari Trading Company</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{% url 'cust_index' %}" class="nav-item nav-link">Home</a>
+                            <a href="{% url 'shopc' %}" class="nav-item nav-link">Products</a>
+                                    <a href="{% url 'cart' %}" class="nav-item nav-link">Shopping Cart</a>
+                                    <a href="{% url 'checkout' %}" class="nav-item nav-link">Checkout</a>
+                                
+                            <a href="{% url 'contact' %}" class="nav-item nav-link">Contact Us</a>
+                        </div>
+                        
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="{% url 'cust_index' %}">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Shopping Cart</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Cart Start -->
+    {% if empty %}
+    <div class="empty-cart">
+        <div class="cart-logo"></div>
+        <p id="cart">Your cart is empty</p>
+      </div>
+      
+    {% else %}
+    <div class="container-fluid pt-5">
+        <form action='check' method="post">
+            {% csrf_token %}
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                      
+                        {% for x in pro %}
+                        <tr>
+                            <td class="align-middle"><img src='media/{{x.image}}' alt="" style="width: 50px;"> {{x.product_name}}</td>
+                            <td class="align-middle" >{{x.price}}</td>
+                            <td class="align-middle">
+                                <div class="d-flex mb-3">
+                                    <p class="text-dark font-weight-medium mb-0 mr-3">
+                                        <div class="form-group">
+                                            <select class="form-control" id="{{x.product_id}}_size" name="{{x.product_id}}_size" data-product-id="{{x.product_id}}">
+                                                <option selected value="s">S</option>
+                                                <option value="m">M</option>
+                                                <option value="l">L</option>
+                                                <option value="xl">XL</option>
+                                                <option value="xxl">XXL</option>
+                                                <option value="xxxl">XXXL</option>
+                                            </select>
+                                        </div>
+                                    </p>
+                                </div>
+                            </td>
+                            
+                            <td class="align-middle">
+                                <div>
+                                    <input type="text" id="{{x.product_id}}_pid" value="{{x.product_id}}" style="display:none"/>
+                                    <input type="text" id="{{x.product_id}}_q" name="{{x.product_id}}_q"   onchange="loadtotal('{{x.price}}', '{{x.product_id}}')"/>
+                                    
+                                </div>
+                            </td>
+                            <td> <input type="text" id="{{x.price}}_{{x.product_id}}_total" name="{{x.product_id}}_total" value="{{x.total_price}}" readonly> </td>
+                            <td><a href="{% url 'remove' x.product_id %}" type="button" >Remove
+                                
+                            </a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <!--form class="mb-5" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form-->
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <p class="font-weight-medium">Subtotal</p>
+                            <h6 class="font-weight-medium" id="cart_total">₹0.00</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium" id="cart_shipping">₹0.00</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold" id="cart_grandtotal">₹0.00</h5>
+                        </div>
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                               <input type="text" name="finalsub" id="finalsub" style="display:none"/> 
+                               <button type="submit" name="checkout" onclick="return finalsubmit()" class="btn btn-block btn-primary my-3 py-3" > Checkout</button>
+                              
+                            </div>
+                        </div> 
+                </div>
+
+                   
+            </div>
+            
+        </div>
+    </div>
+
+
+
+       </form>
+       </div>
+       {% endif %}
+
+       
+        <!-- Cart End -->
+    <!--checkout start-->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    <!-- Footer Start -->
+    
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

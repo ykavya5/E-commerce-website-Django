@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+</head>
+<style>
+   h1 {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.tick-mark {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 28px;
+  color: #007bff;
+}
+
+a {
+  display: block;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 20px auto;
+}
+
+a:hover {
+  background-color: #0062cc;
+}
+
+
+</style> 
+<body>  
+    <h1><span class="tick-mark">&#10004;</span> Order Successful</h1>
+    <a href="{% url 'cust_index' %}">Continue Shopping</a>
+    
+</body>
+</html>

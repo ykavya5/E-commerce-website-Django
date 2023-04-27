@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Dailysheet</title>
+     
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+        <!--Stylesheet-->
+        <style media="screen">
+          *,
+          * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #44b9f8;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f8fe;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+textarea {
+  height: 150px;
+}
+
+button {
+  display: inline-block;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2e8b57;
+}
+        </style>
+    </head>
+<body>
+    
+    <section class="container">
+        <div class="login-container">
+            <div class="form-container">
+
+                <h1 class="opacity">Edit Record</h1>
+                <form method="post" id="f1">
+                    {% csrf_token%}
+                    {%for x in cat%}
+                    <label for="prod_id">Category_name</label>
+                    <input type="text" id ="catname" name="catname" placeholder="{{x.category_name}}" value="{{x.category_name}}">
+                    
+                    {%endfor%}
+
+                        
+                   
+            
+                      
+                    
+                    <button name= "submit" id ="submit" class="opacity" onclick="return ">SUBMIT</button>
+                    
+                </form>
+                
+        <div class="theme-btn-container"></div>
+    </section>
+</body>
+</html>

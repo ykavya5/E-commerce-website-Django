@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="card border-secondary mb-5">
+    <div class="card-header bg-secondary border-0">
+        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+        <a href="{% url 'banking_register' %}"> Register banking details </a>
+    </div>
+    <div class="card-body">
+        <form id="banking_register"  action="cust_payment" method="POST">
+            {%csrf_token%}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+    
+            
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required>
+            
+            <label for="account">Account Number:</label>
+            <input type="text" id="account_number" name="account_number" required>
+            
+        
+    </div>
+    <div class="card-footer border-secondary bg-transparent">
+        <input id="sub2" name="sub2" type="submit" value="place order"class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3"  >
+    </div>
+    </div>
+</form>
+    
+</div>
+</body>

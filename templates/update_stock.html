@@ -1,0 +1,127 @@
+{% load static %}
+<!Doctype HTML>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script>
+    function loadrem() {
+      var rows = document.querySelectorAll('#dailysheet tbody tr');
+      for (var i = 0; i < rows.length; i++) {
+        var inVal = parseFloat(rows[i].querySelector('[name="in"]').value);
+        var outVal = parseFloat(rows[i].querySelector('[name="out"]').value);
+        var remVal = inVal - outVal;
+        rows[i].querySelector('[name="rem"]').value = remVal;
+      }
+    }
+
+  </script>
+  <style>
+    body {
+      overflow: scroll;
+    }
+
+    #mySidenav {
+      position: fixed;
+      width: 200px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: #fff;
+      overflow-x: hidden;
+      padding-top: 60px;
+      box-shadow: none;
+    }
+
+    #mySidenav p.logo {
+      font-size: 28px;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+
+  </style>
+
+
+  </style>
+</head>
+
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <p class="logo">Admin-Dashboard</p>
+    <a href="{% url 'index1' %}" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+    <a href="{% url 'customer' %}" class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Customers</a>
+    <a href="{% url 'categories' %}" class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Categories</a>
+    <a href="{% url 'products' %}" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Products</a>
+    <a href="{% url 'order_details' %}" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Order Details</a>
+    <a href="{% url 'orders' %}" class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Orders</a>
+    <a href="{% url 'dailysheet' %}" class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Dailysheet</a>
+
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+      </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+
+    <div class="col-div-9">
+
+      <form method="post" id="dailysheet" name="dailysheet">
+        {%csrf_token%}
+        <div>
+          
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product id</th>
+                <th scope="col">order date</th>
+                <th scope="col"> INFLOW Quantity</th>
+                <th scope="col">OUTFLOW Quantity</th>
+                <th scope="col"> Remaining Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in da %}
+              <tr>
+                <td>{{x.product_id}}</td>
+                <td>{{x.order_date}}</td>
+                <td><input type="text" name="in" id="in" onchange="loadrem()" /></td>
+                <td><input type="text" name="out" id="out" value="{{x.quantity}}" readonly /></td>
+                <td><input type="text" name="rem" id="rem" value="" readonly /></td>
+
+
+
+               <td><a href="{% url 'save_stock' x.daily_id %}" onclick="document.getElementById('dailysheet').submit()">save</td>
+              </tr>
+
+              {%endfor%}
+
+
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>

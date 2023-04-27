@@ -1,0 +1,20 @@
+{%load static%}
+<html>
+<head>
+<title>Crud Operations</title>
+</head>
+<body>
+<form id="f1" action="" method="POST">   
+    {%csrf_token%}
+    <table border="2">
+        {%for x in photos%}
+         <tr>
+             <td>
+                <img src='media/{{x.name}}' width="50" height="50"/>
+            </td>
+        </tr>
+         {%endfor%}
+     </table>
+</form>
+</body>
+</html>

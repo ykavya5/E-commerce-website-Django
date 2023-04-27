@@ -1,0 +1,88 @@
+<!Doctype HTML>
+<html>
+<head>
+    {% load static %}
+	<title> ordershistory</title>
+  <style>
+    .order-history {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.order-item {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  border: 1px solid #ddd;
+  padding: 16px;
+}
+
+.order-item:hover {
+  border-color: #666;
+}
+
+.order-info {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  display: block;
+}
+
+.order-info > * {
+  flex: 1;
+}
+
+.order-id {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 24px;
+}
+
+.order-detail {
+  margin-top: 12px;
+}
+
+.order-detail a {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.order-detail a:hover {
+  background-color: #555;
+}
+
+
+
+
+  </style>
+</head>  
+
+<form method="post" id="oh" name="oh">
+    {%csrf_token%}
+    <div>
+      
+      <div class="order-history">
+        <h2>Order History</h2>
+        {% for x in oh %}
+        <div class="order-item">
+          <div class="order-info">
+            <div class="order-id">Order ID: {{x.order_id}}</div><br>
+            <div class="order-date">Order Date: {{x.order_date}}</div><br>
+            <div class="total-amount">Total Amount: {{x.total_amount}}</div><br>
+            <div class="order-status">Order Status: {{x.order_status}}</div><br>
+
+          </div>
+          <div class="order-detail">
+            <a href="{% url 'detailed_orderhistory' x.order_id %}">View Details</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+  </form>
+  </html>

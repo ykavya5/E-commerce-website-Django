@@ -1,0 +1,119 @@
+<!Doctype HTML>
+<html>
+<head>
+    {% load static %}
+	<title> ordershistory</title>
+
+<style>
+.order-detail {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  border: 1px solid #ddd;
+  padding: 16px;
+}
+
+.product-info:hover {
+  border-color: #666;
+}
+
+.product-image {
+  flex: 1;
+  margin-right: 24px;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-details {
+  flex: 3;
+}
+
+.product-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.product-id {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.product-size {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.product-description {
+  font-size: 16px;
+  color: #666;
+}
+
+@media (max-width: 767px) {
+  .product-info {
+    flex-wrap: wrap;
+    padding: 8px;
+  }
+  
+  .product-image {
+    margin-bottom: 16px;
+    margin-right: 0;
+    flex: 1 0 100%;
+  }
+  
+  .product-details {
+    flex: 3 0 100%;
+  }
+  
+  .product-name {
+    font-size: 20px;
+  }
+  
+  .product-id {
+    font-size: 14px;
+  }
+  
+  .product-price {
+    font-size: 16px;
+  }
+  
+  .product-description {
+    font-size: 14px;
+  }
+}
+
+</style>
+</head>
+
+
+      <form method="post" id="oh" name="oh">
+        {% csrf_token %}
+        <div class="order-detail">
+          {% for x in od %}
+          <div class="product-info">
+            <div class="product-image">
+              <img src='/media/{{x.image}}' width="200" height="200">
+            </div>
+            <div class="product-details">
+              <h2 class="product-name">{{x.product_name}}</h2>
+              <input class="product-id" style="display:none"></input>
+              <p class="product-size">Size: {{x.prod_size}}</p-->
+              <p class="product-description">{{x.description}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </form>
+      
+   
+  </html>

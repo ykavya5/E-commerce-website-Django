@@ -1,0 +1,216 @@
+<!Doctype HTML>
+<html>
+<head>
+    {% load static %}
+	<title></title>
+	<link rel="stylesheet" href="{% static 'css/style1.css' %}" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {overflow: scroll;
+      margin-left: 100px;}
+    #mySidenav {
+        position: fixed;
+        width: 300px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background-color: #fff;
+        overflow-x: hidden;
+        padding-top: 60px;
+        box-shadow: none;
+      }
+      #main {
+  margin-left: 600px; /* Set margin to the same width as the sidenav */
+  float: left; /* Float the element to the right */
+  padding: 20px;
+}
+
+.col-div-3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.col-div-3 form {
+  margin: 20px;
+}
+
+.col-div-3 table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.col-div-3 th,
+.col-div-3 td {
+  padding: 10px;
+  text-align: center;
+}
+
+.col-div-3 th {
+  background-color: hsl(0, 1%, 40%);
+  color: hsl(0, 100%, 2%);
+}
+
+.col-div-3 tr:nth-child(even) {
+  background-color: #111111;
+}
+
+.col-div-3 input[type="date"] {
+  width: 200px;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.col-div-3 input[type="submit"] {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.col-div-3 input[type="submit"]:hover {
+  background-color: #495057;
+}
+
+.col-div-3 a.btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.col-div-3 a.btn:hover {
+  background-color: #c82333;
+}
+
+.col-div-3 a.btn:focus,
+.col-div-3 a.btn:active {
+  background-color: #bd2130;
+}
+  </style>
+</head>
+
+
+<body>
+	
+	<div id="mySidenav" class="sidenav">
+	<p class="logo">Admin-Dashboard</p>
+  <a href="{% url 'index1' %}" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+  <a href="{% url 'customer' %}"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Customers</a>
+  <a href="{% url 'categories' %}"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Categories</a>
+  <a href="{% url 'products' %}"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Products</a>
+  <a href="{% url 'order_details' %}"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Order Details</a>
+  <a href="{% url 'orders' %}"class="icon-a"><i class="fa fa-shopping-cart"></i> &nbsp;&nbsp;Orders</a>
+  <a href="{% url 'dailysheet' %}"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Dailysheet</a>
+  <a href="{% url 'queries' %}"class="icon-a"><i class="fa fa-question-circle"></i> &nbsp;&nbsp;View Queries</a>
+  <a href="{% url 'logout' %}"class="icon-a"><i class="fa fa-sign-out"></i> &nbsp;&nbsp;Logout</a>
+</div>
+<div id="main">
+
+	<div class="head">
+		<div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav"  >&#9776; Dashboard</span>
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav2"  >&#9776; Dashboard</span>
+</div>
+	
+	 
+    <div class="clearfix"></div>
+  </div>
+  
+    <div class="clearfix"></div>
+    <br/>
+    
+    <div class="col-div-3">
+      <div >
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}  
+          <form method="post" id="products" name="products" enctype='multipart/form-data'>
+            {%csrf_token%}
+            <div>
+              <a href="{% url 'add_newproduct' %}" > ADD </a>
+              <table class="table">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Product id</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Size</th>
+                    <th scope="col">Product Status</th>
+                    <th scope="col">Category ID</th>
+                    <th scope="col">Product description</th>
+                    <th colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for x in pro %}
+                  <tr>
+
+                    <td>{{x.product_id}}</td>
+                    <td>{{x.product_name}}</td>
+                    <td>{{x.price}}</td>
+                    <td><img src='media/{{x.image}}' width="50" height="50"></td>
+                    <td>{{x.prod_size}}</td>
+                    <td>{{x.prod_status}}</td>
+                    <td>{{x.category_id}}</td>
+                    <td>{{x.description}}</td>
+                    <td> <a href="{% url 'del_product' x.product_id %}" class="btn btn-danger">Delete</a> </td>
+                    <td> <a href="{% url 'edit_products' x.product_id %}" class="btn btn-danger">Edit</a> </td>
+
+                  </tr>
+                  {% endfor %}
+
+
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+        </div>
+        </div>
+        </body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  $(".nav").click(function(){
+    $("#mySidenav").css('width','70px');
+    $("#main").css('margin-left','300px');
+    $(".logo").css('visibility', 'hidden');
+    $(".logo span").css('visibility', 'visible');
+     $(".logo span").css('margin-left', '-10px');
+     $(".icon-a").css('visibility', 'hidden');
+     $(".icons").css('visibility', 'visible');
+     $(".icons").css('margin-left', '-8px');
+      $(".nav").css('display','none');
+      $(".nav2").css('display','block');
+  });
+
+$(".nav2").click(function(){
+    $("#mySidenav").css('width','300px');
+    $("#main").css('margin-left','600px');
+    $(".logo").css('visibility', 'visible');
+     $(".icon-a").css('visibility', 'visible');
+     $(".icons").css('visibility', 'visible');
+     $(".nav").css('display','block');
+      $(".nav2").css('display','none');
+ });
+
+</script>
+</html>

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Profile</title>
+ 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style>
+      body {
+          font-family: 'Helvetica Neue', sans-serif;
+          background-color: #f1f1f1;
+      }
+      
+      .background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          width: 100vw;
+          background-color: #3f51b5;
+          z-index: -1;
+      }
+      
+      .shape {
+          position: absolute;
+          height: 150px;
+          width: 150px;
+          background-color: #2196f3;
+          border-radius: 50%;
+          opacity: 0.7;
+      }
+      
+      .shape:nth-child(1) {
+          top: 50%;
+          left: 10%;
+          transform: translate(-50%, -50%);
+      }
+      
+      .shape:nth-child(2) {
+          top: 20%;
+          left: 70%;
+          transform: translate(-50%, -50%);
+      }
+      
+      form {
+          background-color: #fff;
+          width: 50%;
+          margin: 50px auto;
+          padding: 20px;
+          box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          border-radius: 5px;
+      }
+      
+      h3 {
+          text-align: center;
+          margin-bottom: 30px;
+          color: #2196f3;
+      }
+      
+      label {
+          display: block;
+          margin-bottom: 8px;
+          font-size: 14px;
+          font-weight: bold;
+          color: #666;
+      }
+      
+      input[type="text"], input[type="email"], input[type="mobile"] {
+          display: block;
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 20px;
+          font-size: 16px;
+          border-radius: 3px;
+          border: 1px solid #ddd;
+          box-shadow: none;
+          outline: none;
+      }
+      
+      input[type="text"]:focus, input[type="email"]:focus, input[type="mobile"]:focus {
+          border-color: #2196f3;
+      }
+      a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 2px solid #2196f3;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            background-color: #2196f3;
+            transition: background-color 0.2s ease-in-out;
+        }
+        
+        a:hover {
+            background-color: #fff;
+            color: #2196f3;
+        }
+  </style>
+
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="registration" name="registration" > 
+        <h3>Profile</h3>
+        {% for x in cr %}
+        <label for="username">Username</label>
+        <input type="text" placeholder="{{x.username}}" name="username" id="username" value="{{x.username}}">
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="{{x.email}}" name="email" id="email" value="{{x.email}}">
+
+        <label for="phone">Phone</label>
+        <input type="mobile" placeholder="{{x.phone}}" id="phone" name="phone" value="{{x.phone}}">
+
+        <label for="address">Address</label>
+        <input type="text" placeholder="{{x.address}}" id="address" name="address" value="{{x.address}}">
+      
+          {%endfor%}
+          <a href="{% url 'Ordershistory' %}" >Orders</a></br>
+          <a href="{% url 'cust_logout' %}" >Log out</a>
+    </form>
+</body>
+</html>

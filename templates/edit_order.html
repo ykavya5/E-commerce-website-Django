@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Dailysheet</title>
+     
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+        <!--Stylesheet-->
+        <style media="screen">
+          *,
+          * {
+            
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color:  #44b9f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  padding: 20px;
+}
+
+.form-container h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+}
+
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2.58 6.013l7.071 7.071a.75.75 0 0 0 1.061 0l7.071-7.071a.75.75 0 0 0-1.06-1.06L10 11.88 3.64 5.52a.75.75 0 0 0-1.06 1.06z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: auto 50%;
+}
+
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #44b9f8;
+}
+
+.btn {
+  background-color: #44b9f8;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #269ceb;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.social a {
+  display: block;
+  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  color: #44b9f8;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.social a:hover {
+  transform: scale(1.1);
+}
+
+          </style>
+        
+    </head>
+<body>
+    
+    <section class="container">
+        <div class="login-container">
+            <div class="form-container">
+
+                <h1 class="opacity">Edit Record</h1>
+                <form method="post" id="f1">
+                    {% csrf_token%}
+                    
+                    <div class="form-group">
+                        <label for="os">Status:</label>
+                        <select class="form-control" id="os" name="os">
+                          <option selected value="pending">Pending</option>
+                          <option value="on the way">On the way</option>
+                          <option value="delivered">Delivered</option>
+                        </select>
+                        
+                      </div>
+                      
+                    <button name= "submit" id ="submit" class="opacity" onclick="return ">SUBMIT</button>
+                    
+                </form>
+                
+        <div class="theme-btn-container"></div>
+    </section>
+</body>
+</html>
