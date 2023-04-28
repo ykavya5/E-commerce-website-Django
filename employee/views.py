@@ -1083,50 +1083,7 @@ def save_stock(request):
         return redirect('dailysheet')
     return HttpResponse("This view is only for POST requests.")
 
-
-
-
-def del_dailysheet(request,daily_id):
-    conn=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="mmtc"    
-    )
-    query=conn.cursor()
-    query.execute("DELETE FROM dailysheet where daily_id='"+daily_id+"'")
-    conn.commit()
-    return render(request, 'del_dailysheet.html',{'status':' deleted successfully.'})
-def payment(request): 
-    if request.method == 'POST':        
-        conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="mmtc"
-        ) 
-    else:
-        conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="mmtc"
-        )
-
-        mycursor =conn.cursor()
-        mycursor.execute("select * from payment")
-        result=mycursor.fetchall()
-        p=[]
-        for row in result:
-            obj=Payment()
-            obj.payment_id=row[0]
-            obj.payment_date=row[1]
-            obj.order_id=row[2]
-            obj.payment_amount=row[3]
-            obj.payment_type=row[4]
-            p.append(obj)
-        return render(request, 'payment.html', {'pay': p})
-
+       
 def orders(request): 
     if request.method == 'POST':        
         conn = mysql.connector.connect(
@@ -1274,28 +1231,6 @@ def edit_category(request,category_id):
         #print(e)
         
         return render(request, 'edit_category.html', {'cat': w})     
-def add_daily(request):
-    if request.method=='POST':
-        conn = mysql.connector.connect(
-            host = 'localhost',
-            user = 'root',
-            password = '',
-            database = 'mmtc'
-        )
-        query = conn.cursor()
-        product_id=request.POST['product_id']
-        product_name=request.POST['product_name']     
-        stock_inflow=request.POST['stock_inflow']
-        stock_outflow=request.POST['stock_outflow'] 
-        rem_stock=request.POST['rem_stock']  
-        date=request.POST['date']
-        query.execute("insert into dailysheet(product_id,product_name,stock_inflow,stock_outflow,rem_stock,date)values('"+product_id+"','"+product_name+"','"+stock_inflow+"','"+stock_outflow+"','"+rem_stock+"','"+date+"')")
-        conn.commit()
-
-        return redirect('dailysheet')
-    
-    else:
-        return render(request, 'add_daily.html')
 
 def add_newproduct(request):
     if request.method=='POST' and request.FILES['myfile']:
