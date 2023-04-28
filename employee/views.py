@@ -1412,14 +1412,14 @@ def password_recovery(request):
             # SMTP server configuration
             smtp_server = 'smtp.gmail.com'
             smtp_port = 587
-            smtp_username = 'yamsanikavya15@gmail.com'
+            smtp_username = 'yk@gmail.com'
 # for App Password enable 2-step verification then u can create app password
-            smtp_password = 'nitn qdge fqfx jxle'
+            smtp_password = 'nifn qdee fofp kxoe'
 
 # Email content
             subject = 'Password recovery'
             body = 'This is a Password recovery email sent from Matha Manikeshwari Trading Company.'+'Your password as per registration is: '+ pwd[2:len(pwd)-3]
-            sender_email = 'yamsanikavya15@gmail.com'
+            sender_email = 'yk@gmail.com'
             receiver_email = email
 
 # Create a message
