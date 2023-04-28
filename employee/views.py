@@ -1259,44 +1259,6 @@ def add_newproduct(request):
     
     else:
         return render(request, 'add_newproduct.html')
-def edit_orderdetails(request,orderdetails_id): 
-    if request.method=='POST':
-        conn = mysql.connector.connect(
-            host = 'localhost',
-            user = 'root',
-            password = '',
-            database = 'mmtc'
-        )
-        query = conn.cursor()
-        order_id=request.POST['order_id']  
-        product_id=request.POST['product_id']
-        quantity=request.POST['quantity']  
-        
-        query.execute("update order_details set order_id='"+order_id+"',product_id='"+product_id+"',quantity='"+quantity+"'  where orderdetails_id='"+orderdetails_id+"'")
-        conn.commit()
-        return redirect('order_details')
-    else:
-            
-        conn= mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='mmtc'
-        )
-        mycursor = conn.cursor()
-        mycursor.execute("select * from order_details where orderdetails_id='"+orderdetails_id+"'")
-        result = mycursor.fetchall()
-        w=[] 
-        for row in result:
-            obj= Od()
-            obj.orderdetails_id=row[0]
-            obj.order_id=row[1] 
-            obj.product_id=row[2]  
-            obj.quantity=row[3]   
-            w.append(obj)
-        #print(e)
-        
-        return render(request, 'edit_orderdetails.html', {'od': w})  
 
 def cust_profile(request):
     if "username" in request.session:

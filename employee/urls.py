@@ -29,7 +29,6 @@ urlpatterns=[
     path('add_newproduct',views.add_newproduct,name='add_newproduct'),
     path('edit_category/<str:category_id>/',views.edit_category,name='edit_category'),
     path('add_categories',views.add_categories,name='add_categories'),
-    path('edit_orderdetails/<str:orderdetails_id>/',views.edit_orderdetails,name='edit_orderdetails'),
     path('edit_order/<str:order_id>/',views.edit_order,name='edit_order'),
     path('del_categories/<str:category_id>/',views.del_categories,name='del_categories'),
     path('cust_index/',views.cust_index,name='cust_index'),
